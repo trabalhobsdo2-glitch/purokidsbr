@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Baloo 2", "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream: #fffaf3;
+  --color-ink: #1e2a4a;
+
+  --color-teal: #17b8a6;
+  --color-teal-dark: #0f8f81;
+  --color-pink: #ef4d8a;
+  --color-pink-dark: #d63373;
+  --color-yellow: #f9c33c;
+  --color-yellow-dark: #e6a91a;
+  --color-purple: #9b7fe0;
+  --color-purple-dark: #7c5dc7;
+  --color-blue: #2f6fed;
+  --color-blue-dark: #1e4fc4;
+  --color-orange: #f5893b;
+  --color-orange-dark: #e06a1a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .stitch-border {
+    border: 3px dashed currentColor;
+  }
+  .text-stroke {
+    -webkit-text-stroke: 2px var(--color-ink);
+    paint-order: stroke fill;
+  }
+}
