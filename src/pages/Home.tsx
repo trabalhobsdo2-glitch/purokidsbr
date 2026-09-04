@@ -32,7 +32,7 @@ export default function Home() {
                 </a>
                 <div>
                   <p className="font-display text-2xl text-pink leading-none">R$ 24,90</p>
-                  <p className="text-xs text-ink/50">no PIX, direto da fábrica</p>
+                  <p className="text-xs text-ink/50">35% off, direto da fábrica</p>
                 </div>
               </div>
             </div>
