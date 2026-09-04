@@ -7,7 +7,7 @@ export default function Footer() {
             Puro <span className="text-yellow">Kids</span>
           </p>
           <p className="text-white/80 text-sm">
-            Pijamas que abraçam sonhos. Kigurumis fofos, macios e cheios de personalidade
+            Pijamas que abraçam sonhos. Pijamas fofos, macios e cheios de personalidade
             para a criançada dormir (e brincar) muito bem.
           </p>
         </div>
