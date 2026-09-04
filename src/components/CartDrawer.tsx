@@ -87,7 +87,7 @@ export default function CartDrawer() {
               <span className="line-through">{formatBRL(totalAntigo)}</span>
             </div>
             <div className="flex justify-between font-display text-lg">
-              <span>Total no PIX</span>
+              <span>Total</span>
               <span className="text-pink">{formatBRL(totalAtual)}</span>
             </div>
             <Link
