@@ -1,8 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Truck } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { formatBRL } from "../lib/format";
+
+const fretes = [
+  { id: "pac", nome: "PAC", transportadora: "Correios", preco: 3.9, prazo: "8 a 12 dias úteis" },
+  { id: "sedex", nome: "SEDEX", transportadora: "Correios", preco: 5.9, prazo: "3 a 6 dias úteis" },
+];
 
 export default function CheckoutPage() {
   const { items, totalAtual, totalAntigo, clearCart } = useCart();
@@ -13,14 +18,25 @@ export default function CheckoutPage() {
   const [telefone, setTelefone] = useState("");
   const [cep, setCep] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [freteId, setFreteId] = useState<string | null>(null);
+  const [freteError, setFreteError] = useState(false);
+
+  const cepPreenchido = cep.replace(/\D/g, "").length >= 8;
+  const freteSelecionado = fretes.find((f) => f.id === freteId);
+  const valorFrete = freteSelecionado?.preco ?? 0;
+  const totalComFrete = totalAtual + valorFrete;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (cepPreenchido && !freteId) {
+      setFreteError(true);
+      return;
+    }
     setStep("pix");
   };
 
   // TODO(Bruno): aqui entra a integração real do PIX (Mercado Pago / gateway).
-  // Por enquanto este botão só confirma o pedido pra validar o fluxo da loja.
+  // O valor final (produtos + frete) já está em totalComFrete, pronto pra mandar pro Mercado Pago.
   const handleConfirm = () => {
     clearCart();
     navigate("/pedido-confirmado");
@@ -89,7 +105,10 @@ export default function CheckoutPage() {
                 <input
                   required
                   value={cep}
-                  onChange={(e) => setCep(e.target.value)}
+                  onChange={(e) => {
+                    setCep(e.target.value);
+                    setFreteError(false);
+                  }}
                   className="w-full border-2 border-cream rounded-xl px-4 py-2.5 focus:outline-none focus:border-blue"
                   placeholder="00000-000"
                 />
@@ -105,6 +124,42 @@ export default function CheckoutPage() {
                 />
               </div>
             </div>
+
+            {/* Seção de frete - aparece assim que o CEP for preenchido */}
+            {cepPreenchido && (
+              <div>
+                <label className="text-sm font-semibold flex items-center gap-1.5 mb-2">
+                  <Truck size={16} className="text-blue" /> Forma de envio
+                </label>
+                <div className="space-y-2">
+                  {fretes.map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => {
+                        setFreteId(f.id);
+                        setFreteError(false);
+                      }}
+                      className={`w-full flex items-center justify-between rounded-xl border-2 px-4 py-3 text-left transition-colors ${
+                        freteId === f.id ? "border-blue bg-blue/5" : "border-cream hover:border-blue/30"
+                      }`}
+                    >
+                      <div>
+                        <p className="font-semibold text-sm">
+                          {f.nome} <span className="text-ink/50 font-normal">· {f.transportadora}</span>
+                        </p>
+                        <p className="text-xs text-ink/50">{f.prazo}</p>
+                      </div>
+                      <p className="font-display text-blue">{formatBRL(f.preco)}</p>
+                    </button>
+                  ))}
+                </div>
+                {freteError && (
+                  <p className="text-pink text-sm mt-2">Escolha uma forma de envio para continuar.</p>
+                )}
+              </div>
+            )}
+
             <button
               type="submit"
               className="w-full bg-pink hover:bg-pink-dark text-white font-display text-lg py-3.5 rounded-full shadow-lg transition-colors mt-2"
@@ -125,7 +180,7 @@ export default function CheckoutPage() {
               <br />
               (gerado no pagamento)
             </div>
-            <p className="font-display text-2xl text-pink mb-1">{formatBRL(totalAtual)}</p>
+            <p className="font-display text-2xl text-pink mb-1">{formatBRL(totalComFrete)}</p>
             <p className="text-xs text-ink/50 mb-6">Aprovação automática em poucos segundos</p>
             <button
               onClick={handleConfirm}
@@ -171,12 +226,16 @@ export default function CheckoutPage() {
             <span className="line-through">{formatBRL(totalAntigo)}</span>
           </div>
           <div className="flex justify-between text-sm text-ink/50">
-            <span>Frete</span>
-            <span className="text-teal font-semibold">Calculado no envio</span>
+            <span>Frete{freteSelecionado ? ` · ${freteSelecionado.nome}` : ""}</span>
+            {freteSelecionado ? (
+              <span className="font-semibold text-ink">{formatBRL(freteSelecionado.preco)}</span>
+            ) : (
+              <span className="text-teal font-semibold">Informe o CEP</span>
+            )}
           </div>
           <div className="flex justify-between font-display text-xl pt-1">
             <span>Total</span>
-            <span className="text-pink">{formatBRL(totalAtual)}</span>
+            <span className="text-pink">{formatBRL(totalComFrete)}</span>
           </div>
         </div>
       </aside>
