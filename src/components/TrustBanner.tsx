@@ -21,7 +21,7 @@ export default function TrustBanner() {
         <div className="flex items-center gap-3 justify-center sm:justify-start">
           <Zap size={28} className="shrink-0" />
           <div>
-            <p className="font-display leading-tight">50% OFF no PIX</p>
+            <p className="font-display leading-tight">35% OFF na 1ª compra</p>
             <p className="text-xs text-white/80">Aprovação em segundos</p>
           </div>
         </div>
