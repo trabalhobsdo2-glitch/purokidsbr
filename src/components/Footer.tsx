@@ -28,8 +28,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/20 text-center text-white/60 text-xs py-4">
-        © {new Date().getFullYear()} Puro Kids. Todos os direitos reservados.
+      <div className="border-t border-white/20 text-center text-white/60 text-xs py-4 space-y-1">
+        <p>© {new Date().getFullYear()} Puro Kids. Todos os direitos reservados.</p>
+        <p>CNPJ 88.807.216/0001-04</p>
       </div>
     </footer>
   );
