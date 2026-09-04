@@ -20,8 +20,8 @@ export default function Home() {
                 Pijamas que <span className="text-pink">abraçam</span> sonhos
               </h1>
               <p className="text-ink/70 text-lg mb-6 max-w-md mx-auto md:mx-0">
-                Kigurumis fofinhos em fleece antialérgico, com capuz 3D bordado. Do RN ao
-                tamanho 12, prontos pra virar o personagem favorito na hora de dormir.
+                Fofinho, confortável e quentinho na medida certa. Nossos pijamas têm tecido
+                antialérgico, capuz em 3D e detalhes bordados. Disponíveis do RN ao tamanho 12.
               </p>
               <div className="flex items-center gap-4 justify-center md:justify-start">
                 <a
