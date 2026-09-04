@@ -117,7 +117,7 @@ export default function ProductPage() {
             </span>
           </div>
           <p className="text-xs text-ink/50 mb-6">
-            Preço exclusivo para pagamento via PIX · aprovação em segundos
+            Preço com desconto de lançamento · estoque limitado
           </p>
 
           <div className="mb-6">
