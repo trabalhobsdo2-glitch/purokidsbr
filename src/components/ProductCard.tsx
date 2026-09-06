@@ -38,7 +38,7 @@ export default function ProductCard({ product, index }: { product: Product; inde
       </div>
       <div className="px-4 pb-4">
         <span className="w-full flex items-center justify-center gap-2 font-display text-sm py-2.5 rounded-full bg-cream text-blue border-2 border-blue group-hover:bg-blue group-hover:text-white transition-colors">
-          <ShoppingBag size={16} /> Adicionar ao carrinho
+          <ShoppingBag size={16} /> Comprar
         </span>
       </div>
     </Link>
